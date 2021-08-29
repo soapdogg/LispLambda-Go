@@ -21,7 +21,7 @@ func NewTokenizer(
 	}
 }
 
-func (t tokenizer) Tokenize(input string) []string {
+func (t *tokenizer) Tokenize(input string) []string {
 	trimmedInput := strings.TrimSpace(input)
 	words := strings.Fields(trimmedInput)
 
@@ -33,6 +33,6 @@ func (t tokenizer) Tokenize(input string) []string {
 	return result
 }
 
-var _ Tokenizer = tokenizer{}
+var _ Tokenizer = &tokenizer{}
 
 
