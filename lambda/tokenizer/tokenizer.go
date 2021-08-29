@@ -1,6 +1,9 @@
 package tokenizer
 
-import "lisp_lambda-go/lambda/tokenizer/internal"
+import (
+	"lisp_lambda-go/lambda/tokenizer/internal"
+	"strings"
+)
 
 type Tokenizer interface {
 	Tokenize(input string) []string
@@ -10,7 +13,7 @@ type tokenizer struct {
 	wordTokenizer internal.WordTokenizer
 }
 
-func New(
+func NewTokenizer(
 	wordTokenizer internal.WordTokenizer,
 ) *tokenizer {
 	return &tokenizer{
@@ -19,11 +22,15 @@ func New(
 }
 
 func (t tokenizer) Tokenize(input string) []string {
-	return []string{input}
+	trimmedInput := strings.TrimSpace(input)
+	words := strings.Fields(trimmedInput)
 
-	//trimmedInput := input
-
-	//return t.wordTokenizer.TokenizeWord(trimmedInput)
+	var result []string
+	for _, word := range words {
+		tokens := t.wordTokenizer.TokenizeWord(word)
+		result = append(result, tokens...)
+	}
+	return result
 }
 
 var _ Tokenizer = tokenizer{}

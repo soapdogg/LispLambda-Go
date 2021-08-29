@@ -1,6 +1,9 @@
 package internal
 
-import "lisp_lambda-go/lambda/core/constants"
+import (
+	"lisp_lambda-go/lambda/core/constants"
+	"strings"
+)
 
 type WordTokenizer interface{
 	TokenizeWord(word string) []string
@@ -8,7 +11,7 @@ type WordTokenizer interface{
 
 type wordTokenizer struct {}
 
-func New() *wordTokenizer {
+func NewWordTokenizer() *wordTokenizer {
 	return &wordTokenizer{}
 }
 
@@ -24,7 +27,23 @@ func (w *wordTokenizer) TokenizeWord(word string) []string {
 		} else if currentChar == constants.CLOSE_TOKEN_CHAR {
 			token = constants.CLOSE_TOKEN_STR
 		} else {
+			subStr := word[startingPos:]
+			openPos := strings.Index(subStr, constants.OPEN_TOKEN_STR)
+			closePos := strings.Index(subStr, constants.CLOSE_TOKEN_STR)
+			var firstPos int
+			if openPos == -1 && closePos == -1 {
+				firstPos = len(word)
+			} else if closePos == -1 {
+				firstPos = openPos  + startingPos
+			} else if openPos == -1 {
+				firstPos = closePos + startingPos
+			} else if openPos < closePos {
+				firstPos = openPos + startingPos
+			} else {
+				firstPos = closePos + startingPos
+			}
 
+			token = word[startingPos:firstPos]
 		}
 		startingPos += len(token)
 		tokens = append(tokens, token)
