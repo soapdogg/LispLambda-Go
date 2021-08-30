@@ -5,10 +5,6 @@ import (
 	"strings"
 )
 
-type Tokenizer interface {
-	Tokenize(input string) []string
-}
-
 type tokenizer struct {
 	wordTokenizer internal.WordTokenizer
 }

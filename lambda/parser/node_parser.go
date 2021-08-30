@@ -1,13 +1,10 @@
-package internal
+package parser
 
 import (
 	"lisp_lambda-go/lambda/core/constants"
 	"lisp_lambda-go/lambda/core/datamodels"
+	"lisp_lambda-go/lambda/parser/internal"
 )
-
-type NodeParser interface {
-	ParseIntoNode(tokens []string) datamodels.Node
-}
 
 type nodeParser struct {}
 
@@ -51,4 +48,4 @@ func (n *nodeParser) ParseIntoNode(tokens []string) datamodels.Node{
 	return result
 }
 
-var _ NodeParser = &nodeParser{}
+var _ internal.NodeParser = &nodeParser{}

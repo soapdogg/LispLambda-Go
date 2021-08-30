@@ -1,13 +1,10 @@
-package internal
+package tokenizer
 
 import (
 	"lisp_lambda-go/lambda/core/constants"
+	"lisp_lambda-go/lambda/tokenizer/internal"
 	"strings"
 )
-
-type WordTokenizer interface{
-	TokenizeWord(word string) []string
-}
 
 type wordTokenizer struct {}
 
@@ -51,4 +48,4 @@ func (w *wordTokenizer) TokenizeWord(word string) []string {
 	return tokens
 }
 
-var _ WordTokenizer = &wordTokenizer{}
+var _ internal.WordTokenizer = &wordTokenizer{}

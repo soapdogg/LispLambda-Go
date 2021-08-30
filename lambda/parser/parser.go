@@ -5,16 +5,12 @@ import (
 	"lisp_lambda-go/lambda/parser/internal"
 )
 
-type Parser interface {
-	Parse(tokens []string) []datamodels.Node
-}
-
 type parser struct {
 	nodeParser internal.NodeParser
 }
 
 func NewParser(
-	nodeParser internal.NodeParser,	
+	nodeParser internal.NodeParser,
 ) *parser {
 	return &parser{
 		nodeParser,
