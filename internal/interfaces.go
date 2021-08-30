@@ -23,7 +23,7 @@ type ExpressionListLengthAsserter interface{
 }
 
 type Function interface {
-	Evaluate(params *datamodels.NodeStack) datamodels.Node
+	Evaluate(params *datamodels.NodeStack) (datamodels.Node, error)
 }
 
 type ListNotationPrinter interface{

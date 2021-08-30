@@ -14,10 +14,11 @@ func TestAtomIsNil(t *testing.T) {
 	params := datamodels.NewNodeStack()
 	params.Push(node)
 
-	actual := nullFunction.Evaluate(params)
+	actual, actualErr := nullFunction.Evaluate(params)
 
 	atomNode := actual.(*datamodels.AtomNode)
 	assert.Equal(t, constants.T, atomNode.GetValue())
+	assert.Nil(t, actualErr)
 }
 
 func TestAtomIsExpressionList(t *testing.T) {
@@ -27,8 +28,9 @@ func TestAtomIsExpressionList(t *testing.T) {
 	params := datamodels.NewNodeStack()
 	params.Push(node)
 
-	actual := nullFunction.Evaluate(params)
+	actual, actualErr := nullFunction.Evaluate(params)
 
 	atomNode := actual.(*datamodels.AtomNode)
 	assert.Equal(t, constants.NIL, atomNode.GetValue())
+	assert.Nil(t, actualErr)
 }

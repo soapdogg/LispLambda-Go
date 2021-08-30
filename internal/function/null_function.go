@@ -12,15 +12,15 @@ func NewNullFunction() *nullFunction {
 	return &nullFunction{}
 }
 
-func (n nullFunction) Evaluate(params *datamodels.NodeStack) datamodels.Node {
+func (n nullFunction) Evaluate(params *datamodels.NodeStack) (datamodels.Node, error) {
 	first := params.Pop()
 	atomNode, isAtomNode := first.(*datamodels.AtomNode)
 	if isAtomNode {
 		value := atomNode.GetValue()
 		isNil := value == constants.NIL
-		return datamodels.NewAtomNodeFromBool(isNil)
+		return datamodels.NewAtomNodeFromBool(isNil), nil
 	}
-	return datamodels.NewAtomNode(constants.NIL)
+	return datamodels.NewAtomNode(constants.NIL), nil
 }
 
 var _ top.Function = &nullFunction{}
