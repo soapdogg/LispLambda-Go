@@ -1,13 +1,9 @@
 package internal
 
-type InvalidNameDeterminer interface {
-	IsInvalidName(value string) bool
-}
-
-type UserDefinedFormalParametersAsserter interface{
+type FormalParametersAsserter interface{
 	AssertFormalParameters(formalParameters []string) error
 }
 
-type UserDefinedFunctionNameAsserter interface {
+type FunctionNameAsserter interface {
 	AssertFunctionNameIsValid(functionName string) error
 }

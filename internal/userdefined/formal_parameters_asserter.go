@@ -33,4 +33,4 @@ func (u userDefinedFormalParametersAsserter) AssertFormalParameters(formalParame
 }
 
 
-var _ internal.UserDefinedFormalParametersAsserter = &userDefinedFormalParametersAsserter{}
+var _ internal.FormalParametersAsserter = &userDefinedFormalParametersAsserter{}
