@@ -26,6 +26,10 @@ type Function interface {
 	Evaluate(params *datamodels.NodeStack) (datamodels.Node, error)
 }
 
+type FunctionGenerator interface {
+	GenerateFunction(params *datamodels.ExpressionListNode) (*datamodels.DefunFunction, error)
+}
+
 type ListNotationPrinter interface{
 	PrintAllInListNotation(nodes []datamodels.Node) string
 	PrintInListNotation(node datamodels.Node) string
