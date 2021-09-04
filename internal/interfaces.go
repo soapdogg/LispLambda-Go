@@ -36,7 +36,7 @@ type ListNotationPrinter interface{
 }
 
 type Parser interface {
-	Parse(tokens []string) []datamodels.Node
+	Parse(tokens []string) ([]datamodels.Node, error)
 }
 
 type Tokenizer interface {
