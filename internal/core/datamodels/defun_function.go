@@ -17,3 +17,15 @@ func NewDefunFunction(
 		body,
 	}
 }
+
+func (d *DefunFunction) GetFunctionName() string {
+	return d.name
+}
+
+func (d *DefunFunction) GetFormalParameters() []string {
+	return d.formalParameters
+}
+
+func (d *DefunFunction) GetBody() Node {
+	return d.body
+}
