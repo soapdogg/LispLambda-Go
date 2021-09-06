@@ -8,3 +8,11 @@ type ListValueRetriever interface {
 		functionName string,
 	) (*datamodels.ExpressionListNode, error)
 }
+
+type NumericValueRetriever interface {
+	RetrieveNumericValue(
+		node datamodels.Node,
+		functionName string,
+		index int,
+	) (int, error)
+}

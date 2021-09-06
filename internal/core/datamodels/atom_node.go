@@ -1,6 +1,9 @@
 package datamodels
 
-import "lisp_lambda-go/internal/core/constants"
+import (
+	"lisp_lambda-go/internal/core/constants"
+	"strconv"
+)
 
 type AtomNode struct {
 	value string
@@ -18,6 +21,12 @@ func NewAtomNodeFromBool(v bool) *AtomNode {
 		value = constants.NIL
 	}
 	return &AtomNode{value}
+}
+
+func NewAtomNodeFromInt(i int) *AtomNode {
+	return &AtomNode{
+		strconv.Itoa(i),
+	}
 }
 
 func (a *AtomNode) GetValue() string {
