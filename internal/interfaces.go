@@ -21,7 +21,7 @@ type FunctionLengthAsserter interface {
 type ExpressionListLengthAsserter interface{
 	AssertLengthIsAsExpected(
 		nodes []datamodels.Node,
-		userDefinedFunctions map[string] *datamodels.UserDefinedFunction,
+		userDefinedFunctions map[string] *datamodels.DefunFunction,
 	) error
 }
 
@@ -37,6 +37,10 @@ type FunctionGenerator interface {
 type ListNotationPrinter interface{
 	PrintAllInListNotation(nodes []datamodels.Node) string
 	PrintInListNotation(node datamodels.Node) string
+}
+
+type ProgramEvaluator interface {
+	Evaluate(nodes []datamodels.Node, userDefinedFunctions map[string]*datamodels.DefunFunction) ([]datamodels.Node, error)
 }
 
 type Parser interface {

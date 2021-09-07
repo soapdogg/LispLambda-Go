@@ -10,7 +10,7 @@ type expressionListLengthAsserter struct{}
 
 func (e expressionListLengthAsserter) AssertLengthIsAsExpected(
 	nodes []datamodels.Node,
-	userDefinedFunctions map[string]*datamodels.UserDefinedFunction,
+	userDefinedFunctions map[string]*datamodels.DefunFunction,
 ) error {
 	panic("implement me")
 }

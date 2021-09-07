@@ -38,7 +38,7 @@ func (f functionLengthAsserter) AssertLengthIsAtLeastMinimum(
 	node datamodels.Node,
 ) error {
 	actual := f.functionLengthDeterminer.DetermineFunctionLength(node)
-	if actual != expected {
+	if actual < expected {
 		return errors.New("Error! Expected length of " + functionName + " list is to be at least " + strconv.Itoa(expected)  + "!    Actual: " + strconv.Itoa(actual) + "\n")
 	}
 	return nil
