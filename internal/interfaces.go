@@ -25,6 +25,7 @@ type ExpressionListLengthAsserter interface{
 	) error
 }
 
+//counterfeiter:generate -o fakes/fake_function.go . Function
 type Function interface {
 	Evaluate(params *datamodels.NodeStack) (datamodels.Node, error)
 }

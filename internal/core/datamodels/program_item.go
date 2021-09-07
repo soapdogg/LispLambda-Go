@@ -21,6 +21,19 @@ func NewProgramItem(
 	}
 }
 
+func NewProgramItemFromScratch(
+	functionExpressionNode *ExpressionListNode,
+	variableMap map[string] Node,
+) *ProgramItem {
+	firstChild := functionExpressionNode.GetChildren()[0].(*AtomNode)
+	return &ProgramItem{
+		functionExpressionNode,
+		0,
+		variableMap,
+		firstChild.GetValue(),
+	}
+}
+
 func NewProgramItemFromExisting(existingProgramItem *ProgramItem) *ProgramItem {
 	return &ProgramItem{
 		existingProgramItem.GetFunctionExpressionNode(),
