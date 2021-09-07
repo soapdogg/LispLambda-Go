@@ -16,7 +16,7 @@ func TestFirstIsAtom(t *testing.T) {
 
 	actual, actualErr := atomFunction.Evaluate(params)
 
-	atomNode := actual.(*datamodels.AtomNode)
+	atomNode := actual.(datamodels.AtomNode)
 	assert.Equal(t, constants.T, atomNode.GetValue())
 	assert.Nil(t, actualErr)
 }
@@ -30,7 +30,7 @@ func TestFirstIsExpressionList(t *testing.T) {
 
 	actual, actualErr := atomFunction.Evaluate(params)
 
-	atomNode := actual.(*datamodels.AtomNode)
+	atomNode := actual.(datamodels.AtomNode)
 	assert.Equal(t, constants.NIL, atomNode.GetValue())
 	assert.Nil(t, actualErr)
 }

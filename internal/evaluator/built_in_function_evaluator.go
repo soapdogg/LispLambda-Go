@@ -23,10 +23,10 @@ func NewBuiltInFunctionEvaluator(
 
 func (b builtInFunctionEvaluator) EvaluateBuiltInFunction(
 	functionName string,
-	functionStack *datamodels.NodeStack,
-	top *datamodels.ProgramItem,
-	evalStack *datamodels.NodeStack,
-	programStack *datamodels.ProgramItemStack,
+	functionStack datamodels.NodeStack,
+	top datamodels.ProgramItem,
+	evalStack datamodels.NodeStack,
+	programStack datamodels.ProgramItemStack,
 ) error {
 	function := b.functionMap[functionName]
 	evaluatedFunctionResult, err := function.Evaluate(functionStack)

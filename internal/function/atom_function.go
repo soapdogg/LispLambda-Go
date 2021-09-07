@@ -11,9 +11,9 @@ func NewAtomFunction() *atomFunction {
 	return &atomFunction{}
 }
 
-func (a *atomFunction) Evaluate(params *datamodels.NodeStack) (datamodels.Node, error) {
+func (a *atomFunction) Evaluate(params datamodels.NodeStack) (datamodels.Node, error) {
 	first := params.Pop()
-	_, isAtomNode := first.(*datamodels.AtomNode)
+	_, isAtomNode := first.(datamodels.AtomNode)
 	return datamodels.NewAtomNodeFromBool(isAtomNode), nil
 }
 

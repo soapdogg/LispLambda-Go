@@ -6,7 +6,7 @@ type ListValueRetriever interface {
 	RetrieveListValue(
 		node datamodels.Node,
 		functionName string,
-	) (*datamodels.ExpressionListNode, error)
+	) (datamodels.ExpressionListNode, error)
 }
 
 type NumericValueRetriever interface {

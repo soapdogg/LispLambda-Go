@@ -21,7 +21,7 @@ func NewNumericValueRetriever(
 }
 
 func (n numericValueRetriever) RetrieveNumericValue(node datamodels.Node, functionName string, index int) (int, error) {
-	atomNode, isAtomNode := node.(*datamodels.AtomNode)
+	atomNode, isAtomNode := node.(datamodels.AtomNode)
 	if isAtomNode {
 		value := atomNode.GetValue()
 		valueNumeric, err := strconv.Atoi(value)

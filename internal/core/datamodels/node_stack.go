@@ -1,37 +1,44 @@
 package datamodels
 
-type NodeStack struct {
+type NodeStack interface {
+	Push(item Node)
+	Pop() Node
+}
+
+type nodeStack struct {
 	elements []Node
 }
 
-func NewNodeStack() *NodeStack {
-	return &NodeStack{}
+func NewNodeStack() NodeStack {
+	return &nodeStack{}
 }
 
-func (s *NodeStack) Push(item Node) {
+func (s *nodeStack) Push(item Node) {
 	s.elements = append(s.elements, item)
 }
 
-func (s *NodeStack) Pop() Node {
+func (s *nodeStack) Pop() Node {
 	lastIndex := len(s.elements) - 1
 	res := s.elements[lastIndex]
 	s.elements = s.elements[:lastIndex]
 	return res
 }
 
-func (s *NodeStack) Peek() Node {
+func (s *nodeStack) Peek() Node {
 	lastIndex := len(s.elements) - 1
 	return s.elements[lastIndex]
 }
 
-func (s *NodeStack) IsEmpty() bool {
+func (s *nodeStack) IsEmpty() bool {
 	return len(s.elements) == 0
 }
 
-func (s *NodeStack) IsNotEmpty() bool {
+func (s *nodeStack) IsNotEmpty() bool {
 	return len(s.elements) != 0
 }
 
-func (s *NodeStack) Size() int {
+func (s *nodeStack) Size() int {
 	return len(s.elements)
 }
+
+var _ NodeStack = &nodeStack{}

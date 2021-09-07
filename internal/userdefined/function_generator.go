@@ -25,7 +25,7 @@ func NewFunctionGenerator(
 	}
 }
 
-func (f functionGenerator) GenerateFunction(params *datamodels.ExpressionListNode) (*datamodels.DefunFunction, error) {
+func (f functionGenerator) GenerateFunction(params datamodels.ExpressionListNode) (datamodels.DefunFunction, error) {
 	err := f.functionLengthAsserter.AssertLengthIsAsExpected(
 		constants.DEFUN,
 		constants.FOUR,
@@ -35,7 +35,7 @@ func (f functionGenerator) GenerateFunction(params *datamodels.ExpressionListNod
 		return nil, err
 	}
 
-	functionNameNode := params.GetChildren()[1].(*datamodels.AtomNode)
+	functionNameNode := params.GetChildren()[1].(datamodels.AtomNode)
 	functionName := functionNameNode.GetValue()
 	err = f.functionNameAsserter.AssertFunctionNameIsValid(functionName)
 	if err != nil {
@@ -44,11 +44,11 @@ func (f functionGenerator) GenerateFunction(params *datamodels.ExpressionListNod
 
 	var formalParameters []string
 	formalParametersNode := params.GetChildren()[2]
-	expressionListNode, isExpressionListNode := formalParametersNode.(*datamodels.ExpressionListNode)
+	expressionListNode, isExpressionListNode := formalParametersNode.(datamodels.ExpressionListNode)
 	if isExpressionListNode && len(expressionListNode.GetChildren()) > 0 {
 		for i := 0; i < len(expressionListNode.GetChildren()) - 1; i++ {
 			child := expressionListNode.GetChildren()[i]
-			atomNode := child.(*datamodels.AtomNode)
+			atomNode := child.(datamodels.AtomNode)
 			formalParameters = append(formalParameters, atomNode.GetValue())
 		}
 	}

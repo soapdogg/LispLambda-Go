@@ -1,37 +1,47 @@
 package datamodels
 
-type ProgramItemStack struct {
-	elements []*ProgramItem
+type ProgramItemStack interface {
+	Push(item ProgramItem)
+	Pop() ProgramItem
+	Peek() ProgramItem
+	IsNotEmpty() bool
+	Size() int
 }
 
-func NewProgramItemStack() *ProgramItemStack {
-	return &ProgramItemStack{}
+type programItemStack struct {
+	elements []ProgramItem
 }
 
-func (s *ProgramItemStack) Push(item *ProgramItem) {
+func NewProgramItemStack() ProgramItemStack {
+	return &programItemStack{}
+}
+
+func (s *programItemStack) Push(item ProgramItem) {
 	s.elements = append(s.elements, item)
 }
 
-func (s *ProgramItemStack) Pop() *ProgramItem {
+func (s *programItemStack) Pop() ProgramItem {
 	lastIndex := len(s.elements) - 1
 	res := s.elements[lastIndex]
 	s.elements = s.elements[:lastIndex]
 	return res
 }
 
-func (s *ProgramItemStack) Peek() *ProgramItem {
+func (s *programItemStack) Peek() ProgramItem {
 	lastIndex := len(s.elements) - 1
 	return s.elements[lastIndex]
 }
 
-func (s *ProgramItemStack) IsEmpty() bool {
+func (s *programItemStack) IsEmpty() bool {
 	return len(s.elements) == 0
 }
 
-func (s *ProgramItemStack) IsNotEmpty() bool {
+func (s *programItemStack) IsNotEmpty() bool {
 	return len(s.elements) != 0
 }
 
-func (s *ProgramItemStack) Size() int {
+func (s *programItemStack) Size() int {
 	return len(s.elements)
 }
+
+var _ ProgramItemStack = &programItemStack{}

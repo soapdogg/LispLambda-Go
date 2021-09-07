@@ -1,19 +1,29 @@
 package datamodels
 
-type ProgramItem struct {
-	functionExpressionNode *ExpressionListNode
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
+
+//counterfeiter:generate -o fakes/fake_program_item.go . ProgramItem
+type ProgramItem interface {
+	GetFunctionExpressionNode() ExpressionListNode
+	GetCurrentParameterIndex() int
+	GetVariableMap() map[string] Node
+	GetFunctionName() string
+}
+
+type programItem struct {
+	functionExpressionNode ExpressionListNode
 	currentParameterIndex int
 	variableMap map[string] Node
 	functionName string
 }
 
 func NewProgramItem(
-	functionExpressionNode *ExpressionListNode,
+	functionExpressionNode ExpressionListNode,
 	currentParameterIndex int,
 	variableMap map[string] Node,
 	functionName string,
-) *ProgramItem {
-	return &ProgramItem{
+) *programItem {
+	return &programItem{
 		functionExpressionNode,
 		currentParameterIndex,
 		variableMap,
@@ -22,11 +32,11 @@ func NewProgramItem(
 }
 
 func NewProgramItemFromScratch(
-	functionExpressionNode *ExpressionListNode,
+	functionExpressionNode ExpressionListNode,
 	variableMap map[string] Node,
-) *ProgramItem {
-	firstChild := functionExpressionNode.GetChildren()[0].(*AtomNode)
-	return &ProgramItem{
+) *programItem {
+	firstChild := functionExpressionNode.GetChildren()[0].(AtomNode)
+	return &programItem{
 		functionExpressionNode,
 		0,
 		variableMap,
@@ -34,8 +44,8 @@ func NewProgramItemFromScratch(
 	}
 }
 
-func NewProgramItemFromExisting(existingProgramItem *ProgramItem) *ProgramItem {
-	return &ProgramItem{
+func NewProgramItemFromExisting(existingProgramItem ProgramItem) *programItem {
+	return &programItem{
 		existingProgramItem.GetFunctionExpressionNode(),
 		existingProgramItem.GetCurrentParameterIndex() + 1,
 		existingProgramItem.GetVariableMap(),
@@ -43,18 +53,20 @@ func NewProgramItemFromExisting(existingProgramItem *ProgramItem) *ProgramItem {
 	}
 }
 
-func(p *ProgramItem) GetFunctionExpressionNode() *ExpressionListNode {
+func(p *programItem) GetFunctionExpressionNode() ExpressionListNode {
 	return p.functionExpressionNode
 }
 
-func (p *ProgramItem) GetCurrentParameterIndex() int {
+func (p *programItem) GetCurrentParameterIndex() int {
 	return p.currentParameterIndex
 }
 
-func (p *ProgramItem) GetVariableMap() map[string] Node {
+func (p *programItem) GetVariableMap() map[string] Node {
 	return p.variableMap
 }
 
-func (p *ProgramItem) GetFunctionName() string {
+func (p *programItem) GetFunctionName() string {
 	return p.functionName
 }
+
+var _ ProgramItem = &programItem{}

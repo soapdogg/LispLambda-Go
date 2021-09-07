@@ -12,15 +12,15 @@ func NewRootNodePartitioner() *rootNodePartitioner {
 	return &rootNodePartitioner{}
 }
 
-func (r rootNodePartitioner) PartitionRootNodes(nodes []datamodels.Node) *datamodels.PartitionedRootNodes {
-	defun := []*datamodels.ExpressionListNode{}
+func (r rootNodePartitioner) PartitionRootNodes(nodes []datamodels.Node) datamodels.PartitionedRootNodes {
+	defun := []datamodels.ExpressionListNode{}
 	executables := []datamodels.Node{}
 
 	for _, rootNode := range nodes {
-		expressionListNode, isExpressionListNode := rootNode.(*datamodels.ExpressionListNode)
+		expressionListNode, isExpressionListNode := rootNode.(datamodels.ExpressionListNode)
 		if isExpressionListNode {
 			firstChild := expressionListNode.GetChildren()[0]
-			atomNode, isAtomNode := firstChild.(*datamodels.AtomNode)
+			atomNode, isAtomNode := firstChild.(datamodels.AtomNode)
 			if isAtomNode {
 				if atomNode.GetValue() == constants.DEFUN {
 					defun = append(defun, expressionListNode)

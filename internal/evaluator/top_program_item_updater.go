@@ -11,7 +11,7 @@ func NewTopProgramItemUpdater() *topProgramItemUpdater {
 	return &topProgramItemUpdater{}
 }
 
-func (t topProgramItemUpdater) UpdateTopProgramItemToNextChild(programStack *datamodels.ProgramItemStack) {
+func (t topProgramItemUpdater) UpdateTopProgramItemToNextChild(programStack datamodels.ProgramItemStack) {
 	if programStack.IsNotEmpty() {
 		top := programStack.Pop()
 		updatedTop := datamodels.NewProgramItemFromExisting(top)

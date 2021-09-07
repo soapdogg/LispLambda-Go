@@ -12,12 +12,12 @@ func NewListValueRetriever() *listValueRetriever {
 	return &listValueRetriever{}
 }
 
-func (l listValueRetriever) RetrieveListValue(node datamodels.Node, functionName string) (*datamodels.ExpressionListNode, error) {
-	expressionList, isExpressionList := node.(*datamodels.ExpressionListNode)
+func (l listValueRetriever) RetrieveListValue(node datamodels.Node, functionName string) (datamodels.ExpressionListNode, error) {
+	expressionList, isExpressionList := node.(datamodels.ExpressionListNode)
 	if isExpressionList {
 		return expressionList, nil
 	}
-	atomNode, _ := node.(*datamodels.AtomNode)
+	atomNode := node.(datamodels.AtomNode)
 	return nil, errors.New("Error! Parameter of " + functionName + " is not a list.    Actual: " + atomNode.GetValue())
 }
 

@@ -3,7 +3,7 @@ package asserter
 import (
 	"lisp_lambda-go/internal/asserter/internal"
 	"lisp_lambda-go/internal/core/constants"
-	datamodels2 "lisp_lambda-go/internal/core/datamodels"
+	"lisp_lambda-go/internal/core/datamodels"
 )
 
 type functionLengthDeterminer struct {}
@@ -12,10 +12,10 @@ func NewFunctionLengthDeterminer()*functionLengthDeterminer {
 	return &functionLengthDeterminer{}
 }
 
-func (f *functionLengthDeterminer) DetermineFunctionLength(node datamodels2.Node) int {
-	expressionListNode, isExpressionList := node.(*datamodels2.ExpressionListNode)
+func (f *functionLengthDeterminer) DetermineFunctionLength(node datamodels.Node) int {
+	expressionListNode, isExpressionList := node.(datamodels.ExpressionListNode)
 	if !isExpressionList {
-		atomNode, _ := node.(*datamodels2.AtomNode)
+		atomNode, _ := node.(datamodels.AtomNode)
 		if atomNode.GetValue() == constants.NIL {
 			return 0
 		} else {
@@ -24,7 +24,7 @@ func (f *functionLengthDeterminer) DetermineFunctionLength(node datamodels2.Node
 	} else {
 		children := expressionListNode.GetChildren()
 		lastChild := children[len(children) - 1]
-		lastChildAtomNode, ok := lastChild.(*datamodels2.AtomNode)
+		lastChildAtomNode, ok := lastChild.(datamodels.AtomNode)
 		if ok && lastChildAtomNode.GetValue() == constants.NIL {
 			return len(children) - 1
 		} else {

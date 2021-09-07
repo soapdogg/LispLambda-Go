@@ -8,25 +8,25 @@ import (
 )
 
 type FakePostEvaluationStackUpdater struct {
-	UpdateStacksAfterEvaluationStub        func(datamodels.Node, map[string]datamodels.Node, *datamodels.NodeStack, *datamodels.ProgramItemStack)
+	UpdateStacksAfterEvaluationStub        func(datamodels.Node, map[string]datamodels.Node, datamodels.NodeStack, datamodels.ProgramItemStack)
 	updateStacksAfterEvaluationMutex       sync.RWMutex
 	updateStacksAfterEvaluationArgsForCall []struct {
 		arg1 datamodels.Node
 		arg2 map[string]datamodels.Node
-		arg3 *datamodels.NodeStack
-		arg4 *datamodels.ProgramItemStack
+		arg3 datamodels.NodeStack
+		arg4 datamodels.ProgramItemStack
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluation(arg1 datamodels.Node, arg2 map[string]datamodels.Node, arg3 *datamodels.NodeStack, arg4 *datamodels.ProgramItemStack) {
+func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluation(arg1 datamodels.Node, arg2 map[string]datamodels.Node, arg3 datamodels.NodeStack, arg4 datamodels.ProgramItemStack) {
 	fake.updateStacksAfterEvaluationMutex.Lock()
 	fake.updateStacksAfterEvaluationArgsForCall = append(fake.updateStacksAfterEvaluationArgsForCall, struct {
 		arg1 datamodels.Node
 		arg2 map[string]datamodels.Node
-		arg3 *datamodels.NodeStack
-		arg4 *datamodels.ProgramItemStack
+		arg3 datamodels.NodeStack
+		arg4 datamodels.ProgramItemStack
 	}{arg1, arg2, arg3, arg4})
 	stub := fake.UpdateStacksAfterEvaluationStub
 	fake.recordInvocation("UpdateStacksAfterEvaluation", []interface{}{arg1, arg2, arg3, arg4})
@@ -42,13 +42,13 @@ func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluationCallCount
 	return len(fake.updateStacksAfterEvaluationArgsForCall)
 }
 
-func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluationCalls(stub func(datamodels.Node, map[string]datamodels.Node, *datamodels.NodeStack, *datamodels.ProgramItemStack)) {
+func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluationCalls(stub func(datamodels.Node, map[string]datamodels.Node, datamodels.NodeStack, datamodels.ProgramItemStack)) {
 	fake.updateStacksAfterEvaluationMutex.Lock()
 	defer fake.updateStacksAfterEvaluationMutex.Unlock()
 	fake.UpdateStacksAfterEvaluationStub = stub
 }
 
-func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluationArgsForCall(i int) (datamodels.Node, map[string]datamodels.Node, *datamodels.NodeStack, *datamodels.ProgramItemStack) {
+func (fake *FakePostEvaluationStackUpdater) UpdateStacksAfterEvaluationArgsForCall(i int) (datamodels.Node, map[string]datamodels.Node, datamodels.NodeStack, datamodels.ProgramItemStack) {
 	fake.updateStacksAfterEvaluationMutex.RLock()
 	defer fake.updateStacksAfterEvaluationMutex.RUnlock()
 	argsForCall := fake.updateStacksAfterEvaluationArgsForCall[i]

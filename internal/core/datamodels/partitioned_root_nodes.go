@@ -1,24 +1,34 @@
 package datamodels
 
-type PartitionedRootNodes struct {
-	defunNodes []*ExpressionListNode
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
+
+//counterfeiter:generate -o fakes/fake_partitioned_root_nodes.go . PartitionedRootNodes
+type PartitionedRootNodes interface {
+	GetDefunNodes() []ExpressionListNode
+	GetEvaluatableNodes() []Node
+}
+
+type partitionedRootNodes struct {
+	defunNodes []ExpressionListNode
 	evaluatableNodes []Node
 }
 
 func NewPartitionedRootNodes(
-	defunNodes []*ExpressionListNode,
+	defunNodes []ExpressionListNode,
 	evaluatableNodes []Node,
-) *PartitionedRootNodes {
-	return &PartitionedRootNodes{
+) *partitionedRootNodes {
+	return &partitionedRootNodes{
 		defunNodes,
 		evaluatableNodes,
 	}
 }
 
-func (p *PartitionedRootNodes) GetDefunNodes() []*ExpressionListNode {
+func (p *partitionedRootNodes) GetDefunNodes() []ExpressionListNode {
 	return p.defunNodes
 }
 
-func (p *PartitionedRootNodes) GetEvaluatableNodes() []Node {
+func (p *partitionedRootNodes) GetEvaluatableNodes() []Node {
 	return p.evaluatableNodes
 }
+
+var _ PartitionedRootNodes = &partitionedRootNodes{}

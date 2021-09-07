@@ -23,7 +23,7 @@ func (l listNotationPrinter) PrintAllInListNotation(nodes []datamodels.Node) str
 }
 
 func (l listNotationPrinter) PrintInListNotation(node datamodels.Node) string {
-	expressionNode, isExpressionNode := node.(*datamodels.ExpressionListNode)
+	expressionNode, isExpressionNode := node.(datamodels.ExpressionListNode)
 	if isExpressionNode {
 		result := constants.OPEN_TOKEN_STR
 		for i := 0; i < len(expressionNode.GetChildren()) - 1; i++ {
@@ -32,7 +32,7 @@ func (l listNotationPrinter) PrintInListNotation(node datamodels.Node) string {
 		}
 		result = strings.TrimSpace(result)
 		lastChild := expressionNode.GetChildren()[len(expressionNode.GetChildren()) - 1]
-		atomNode, isAtomNode := lastChild.(*datamodels.AtomNode)
+		atomNode, isAtomNode := lastChild.(datamodels.AtomNode)
 		if isAtomNode && atomNode.GetValue() == constants.NIL {
 			result += constants.CLOSE_TOKEN_STR
 		} else {
@@ -42,7 +42,7 @@ func (l listNotationPrinter) PrintInListNotation(node datamodels.Node) string {
 		}
 		return result
 	} else {
-		atomNode, _ := node.(*datamodels.AtomNode)
+		atomNode, _ := node.(datamodels.AtomNode)
 		return atomNode.GetValue()
 	}
 }

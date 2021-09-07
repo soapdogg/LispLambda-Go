@@ -23,11 +23,11 @@ func NewProgramEvaluator(
 
 func (p programEvaluator) Evaluate(
 	nodes []datamodels.Node,
-	userDefinedFunctions map[string]*datamodels.DefunFunction,
+	userDefinedFunctions map[string]datamodels.DefunFunction,
 ) ([]datamodels.Node, error) {
 	result := [] datamodels.Node {}
 	for _, node := range nodes {
-		atomNode, isAtomNode := node.(*datamodels.AtomNode)
+		atomNode, isAtomNode := node.(datamodels.AtomNode)
 		if isAtomNode {
 			err := p.atomRootNodeAsserter.AssertAtomRootNode(atomNode)
 			if err != nil {
@@ -35,7 +35,7 @@ func (p programEvaluator) Evaluate(
 			}
 			result = append(result, atomNode)
 		} else {
-			expressionListNode := node.(*datamodels.ExpressionListNode)
+			expressionListNode := node.(datamodels.ExpressionListNode)
 			programStack := datamodels.NewProgramItemStack()
 			evalStack := datamodels.NewNodeStack()
 			evaluated, err := p.rootNodeEvaluator.Evaluate(

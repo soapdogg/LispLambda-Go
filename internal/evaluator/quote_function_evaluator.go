@@ -18,9 +18,9 @@ func NewQuoteFunctionEvaluator(
 }
 
 func (q quoteFunctionEvaluator) EvaluateQuoteFunction(
-	top *datamodels.ProgramItem,
-	evalStack *datamodels.NodeStack,
-	programStack *datamodels.ProgramItemStack,
+	top datamodels.ProgramItem,
+	evalStack datamodels.NodeStack,
+	programStack datamodels.ProgramItemStack,
 ) {
 	quoteExprNode := top.GetFunctionExpressionNode()
 	quoted := quoteExprNode.GetChildren()[1]

@@ -12,9 +12,9 @@ func NewTopProgramItemCreator() *topProgramItemCreator {
 }
 
 func (t topProgramItemCreator) CreateTopProgramItem(
-	expressionListNode *datamodels.ExpressionListNode,
+	expressionListNode datamodels.ExpressionListNode,
 	variableMap map[string]datamodels.Node,
-	programStack *datamodels.ProgramItemStack,
+	programStack datamodels.ProgramItemStack,
 ) {
  	top := datamodels.NewProgramItemFromScratch(
  		expressionListNode,

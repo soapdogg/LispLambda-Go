@@ -8,10 +8,10 @@ import (
 )
 
 type FakeFunction struct {
-	EvaluateStub        func(*datamodels.NodeStack) (datamodels.Node, error)
+	EvaluateStub        func(datamodels.NodeStack) (datamodels.Node, error)
 	evaluateMutex       sync.RWMutex
 	evaluateArgsForCall []struct {
-		arg1 *datamodels.NodeStack
+		arg1 datamodels.NodeStack
 	}
 	evaluateReturns struct {
 		result1 datamodels.Node
@@ -25,11 +25,11 @@ type FakeFunction struct {
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeFunction) Evaluate(arg1 *datamodels.NodeStack) (datamodels.Node, error) {
+func (fake *FakeFunction) Evaluate(arg1 datamodels.NodeStack) (datamodels.Node, error) {
 	fake.evaluateMutex.Lock()
 	ret, specificReturn := fake.evaluateReturnsOnCall[len(fake.evaluateArgsForCall)]
 	fake.evaluateArgsForCall = append(fake.evaluateArgsForCall, struct {
-		arg1 *datamodels.NodeStack
+		arg1 datamodels.NodeStack
 	}{arg1})
 	stub := fake.EvaluateStub
 	fakeReturns := fake.evaluateReturns
@@ -50,13 +50,13 @@ func (fake *FakeFunction) EvaluateCallCount() int {
 	return len(fake.evaluateArgsForCall)
 }
 
-func (fake *FakeFunction) EvaluateCalls(stub func(*datamodels.NodeStack) (datamodels.Node, error)) {
+func (fake *FakeFunction) EvaluateCalls(stub func(datamodels.NodeStack) (datamodels.Node, error)) {
 	fake.evaluateMutex.Lock()
 	defer fake.evaluateMutex.Unlock()
 	fake.EvaluateStub = stub
 }
 
-func (fake *FakeFunction) EvaluateArgsForCall(i int) *datamodels.NodeStack {
+func (fake *FakeFunction) EvaluateArgsForCall(i int) datamodels.NodeStack {
 	fake.evaluateMutex.RLock()
 	defer fake.evaluateMutex.RUnlock()
 	argsForCall := fake.evaluateArgsForCall[i]
