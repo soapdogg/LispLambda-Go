@@ -77,6 +77,7 @@ type RootNodeEvaluator interface {
 	) (datamodels.Node, error)
 }
 
+//counterfeiter:generate -o fakes/fake_stack_updater_determiner.go . StackUpdateDeterminer
 type StackUpdateDeterminer interface {
 	DetermineHowToUpdateStacks(
 		node datamodels.Node,
