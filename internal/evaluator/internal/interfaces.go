@@ -8,6 +8,7 @@ type AtomRootNodeAsserter interface {
 	AssertAtomRootNode(atomNode datamodels.AtomNode) error
 }
 
+//counterfeiter:generate -o fakes/fake_built_in_function_evaluator.go . BuiltInFunctionEvaluator
 type BuiltInFunctionEvaluator interface {
 	EvaluateBuiltInFunction(
 		functionName string,
@@ -44,8 +45,8 @@ type FinishedProgramItemEvaluator interface {
 	EvaluateFinishedProgramItem(
 		top datamodels.ProgramItem,
 		userDefinedFunctions map[string]datamodels.DefunFunction,
-		evalStack *datamodels.NodeStack,
-		programStack *datamodels.ProgramItemStack,
+		evalStack datamodels.NodeStack,
+		programStack datamodels.ProgramItemStack,
 	) error
 }
 
@@ -87,6 +88,7 @@ type StackUpdateDeterminer interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_top_program_item_creator.go . TopProgramItemCreator
 type TopProgramItemCreator interface {
 	CreateTopProgramItem(
 		expressionListNode datamodels.ExpressionListNode,
@@ -95,6 +97,7 @@ type TopProgramItemCreator interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_top_program_item_updater.go . TopProgramItemUpdater
 type TopProgramItemUpdater interface {
 	UpdateTopProgramItemToNextChild(
 		programStack datamodels.ProgramItemStack,
@@ -109,6 +112,7 @@ type UnfinishedProgramStackItemEvaluator interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_user_defined_function_evaluator.go . UserDefinedFunctionEvaluator
 type UserDefinedFunctionEvaluator interface {
 	EvaluateUserDefinedFunction(
 		userDefinedFunction datamodels.DefunFunction,
