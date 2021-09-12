@@ -24,9 +24,10 @@ type CondChildFunctionEvaluator interface {
 		top datamodels.ProgramItem,
 		evalStack datamodels.NodeStack,
 		programStack datamodels.ProgramItemStack,
-	) error
+	)
 }
 
+//counterfeiter:generate -o fakes/fake_cond_child_stack_item_builder.go . CondChildStackItemBuilder
 type CondChildStackItemBuilder interface {
 	BuildCondChildStackItems(
 		condProgramItem datamodels.ProgramItem,
