@@ -25,7 +25,7 @@ func (p programEvaluator) Evaluate(
 	nodes []datamodels.Node,
 	userDefinedFunctions map[string]datamodels.DefunFunction,
 ) ([]datamodels.Node, error) {
-	result := [] datamodels.Node {}
+	var result []datamodels.Node
 	for _, node := range nodes {
 		atomNode, isAtomNode := node.(datamodels.AtomNode)
 		if isAtomNode {

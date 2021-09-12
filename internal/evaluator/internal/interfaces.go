@@ -4,6 +4,7 @@ import "lisp_lambda-go/internal/core/datamodels"
 
 //go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
 
+//counterfeiter:generate -o fakes/fake_atom_root_node_asserter.go . AtomRootNodeAsserter
 type AtomRootNodeAsserter interface {
 	AssertAtomRootNode(atomNode datamodels.AtomNode) error
 }
@@ -19,6 +20,7 @@ type BuiltInFunctionEvaluator interface {
 	) error
 }
 
+//counterfeiter:generate -o fakes/fake_cond_child_function_evaluator.go . CondChildFunctionEvaluator
 type CondChildFunctionEvaluator interface {
 	EvaluateCondChildFunction(
 		top datamodels.ProgramItem,
@@ -35,6 +37,7 @@ type CondChildStackItemBuilder interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_cond_function_evaluator.go . CondFunctionEvaluator
 type CondFunctionEvaluator interface {
 	EvaluateCondProgramItem(
 		top datamodels.ProgramItem,
@@ -42,6 +45,7 @@ type CondFunctionEvaluator interface {
 	) error
 }
 
+//counterfeiter:generate -o fakes/fake_finished_program_item_evaluator.go . FinishedProgramItemEvaluator
 type FinishedProgramItemEvaluator interface {
 	EvaluateFinishedProgramItem(
 		top datamodels.ProgramItem,
@@ -62,6 +66,7 @@ type PostEvaluationStackUpdater interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_quote_function_evaluator.go . QuoteFunctionEvaluator
 type QuoteFunctionEvaluator interface{
 	EvaluateQuoteFunction(
 		top datamodels.ProgramItem,
@@ -70,6 +75,7 @@ type QuoteFunctionEvaluator interface{
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_root_node_evaluator.go . RootNodeEvaluator
 type RootNodeEvaluator interface {
 	Evaluate(
 		rootNode datamodels.ExpressionListNode,
@@ -105,6 +111,7 @@ type TopProgramItemUpdater interface {
 	)
 }
 
+//counterfeiter:generate -o fakes/fake_unfinished_program_stack_item_evaluator.go . UnfinishedProgramStackItemEvaluator
 type UnfinishedProgramStackItemEvaluator interface {
 	EvaluateUnfinishedProgramItem(
 		top datamodels.ProgramItem,
