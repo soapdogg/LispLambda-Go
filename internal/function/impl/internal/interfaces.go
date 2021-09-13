@@ -4,6 +4,7 @@ import "lisp_lambda-go/internal/core/datamodels"
 
 //go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
 
+//counterfeiter:generate -o fakes/fake_list_value_retriever.go . ListValueRetriever
 type ListValueRetriever interface {
 	RetrieveListValue(
 		node datamodels.Node,
@@ -11,6 +12,7 @@ type ListValueRetriever interface {
 	) (datamodels.ExpressionListNode, error)
 }
 
+//counterfeiter:generate -o fakes/fake_numeric_value_retriever.go . NumericValueRetriever
 type NumericValueRetriever interface {
 	RetrieveNumericValue(
 		node datamodels.Node,

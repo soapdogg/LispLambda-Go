@@ -16,6 +16,7 @@ func NewSingleton() *singleton {
 
 	functionLengthMap := map[string]int {
 		constants.ATOM: constants.TWO,
+		constants.CAR: constants.TWO,
 		constants.NULL: constants.TWO,
 	}
 

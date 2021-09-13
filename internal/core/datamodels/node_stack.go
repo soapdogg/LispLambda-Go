@@ -3,6 +3,7 @@ package datamodels
 type NodeStack interface {
 	Push(item Node)
 	Pop() Node
+	IsNotEmpty() bool
 }
 
 type nodeStack struct {

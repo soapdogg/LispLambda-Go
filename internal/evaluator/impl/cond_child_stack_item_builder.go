@@ -27,7 +27,8 @@ func (c condChildStackItemBuilder) BuildCondChildStackItems(
 		condChildAtomNode := datamodels.NewAtomNode(constants.COND_CHILD)
 		childExpressionList, _ := condsChildren[i].(datamodels.ExpressionListNode)
 		grandchildren := childExpressionList.GetChildren()
-		condGrandChildren := []datamodels.Node{condChildAtomNode, grandchildren}
+		condGrandChildren := []datamodels.Node{condChildAtomNode}
+		condGrandChildren = append(condGrandChildren, grandchildren...)
 		expressionList := datamodels.NewExpressionListNode(condGrandChildren)
 		c.topProgramItemCreator.CreateTopProgramItem(
 			expressionList,
