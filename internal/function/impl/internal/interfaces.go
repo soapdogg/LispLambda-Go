@@ -4,6 +4,10 @@ import "lisp_lambda-go/internal/core/datamodels"
 
 //go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
 
+type GCDCalculator interface {
+	CalculateGCD(i int, j int) int
+}
+
 //counterfeiter:generate -o fakes/fake_list_value_retriever.go . ListValueRetriever
 type ListValueRetriever interface {
 	RetrieveListValue(

@@ -4,6 +4,7 @@ type NodeStack interface {
 	Push(item Node)
 	Pop() Node
 	IsNotEmpty() bool
+	IsEmpty() bool
 }
 
 type nodeStack struct {
