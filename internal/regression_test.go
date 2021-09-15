@@ -221,6 +221,114 @@ func TestRegression(t *testing.T) {
 	}
 }
 
+var errorTests = []struct {
+	input string
+	expected string
+} {
+	{"ERIC" , "Error! ERIC is not a valid atomic value!"},
+	{"(1 2 3)" , "Error! Invalid CAR value: 1"},
+	{"(BILL 23)" , "Error! Invalid CAR value: BILL"},
+	{"(GREATER 33 (PLUS (TIM 0) 0))" , "Error! Invalid CAR value: TIM"},
+	{"(atom)" , "Error! Expected length of atom list is 2!    Actual: 1"},
+	{"(atom 2 3)" , "Error! Expected length of atom list is 2!    Actual: 3"},
+	{"(car)" , "Error! Expected length of car list is 2!    Actual: 1"},
+	{"(car 23 T)" , "Error! Expected length of car list is 2!    Actual: 3"},
+	{"(car 23)" , "Error! Parameter of car is not a list.    Actual: 23"},
+	{"(car (1 2 3))" , "Error! Invalid CAR value: 1"},
+	{"(cdr)" , "Error! Expected length of cdr list is 2!    Actual: 1"},
+	{"(cdr 1 NIL T)" , "Error! Expected length of cdr list is 2!    Actual: 4"},
+	{"(cdr (int 2))" , "Error! Parameter of cdr is not a list.    Actual: T"},
+	{"(cond)" , "Error! None of the conditions in the cond function evaluated to true."},
+	{"(cond (23 34) 34)" , "Error! cond parameter is not a list!"},
+	{"(cond ((int T) 34) ((null T) 12) ((NIL 1) 4))" , "Error! None of the conditions in the cond function evaluated to true."},
+	{"(cond (2 34) (T 12) (NIL 23 T))" , "Error! Expected length of cond list is 2!    Actual: 3"},
+	{"(cons)" , "Error! Expected length of cons list is 3!    Actual: 1"},
+	{"(cons 23 12 34)" , "Error! Expected length of cons list is 3!    Actual: 4"},
+	{"(=)" , "Error! Expected length of = list to be at least 2!    Actual: 1"},
+	{"(evenp)" , "Error! Expected length of evenp list is 2!    Actual: 1"},
+	{"(evenp 23 23)" , "Error! Expected length of evenp list is 2!    Actual: 3"},
+	{"(evenp T)" , "Error! Parameter at position: 1 of function evenp is not numeric!    Actual: T"},
+	{"(>)" , "Error! Expected length of > list to be at least 2!    Actual: 1"},
+	{"(> NIL 23)" , "Error! Parameter at position: 1 of function > is not numeric!    Actual: NIL"},
+	{"(>=)" , "Error! Expected length of >= list to be at least 2!    Actual: 1"},
+	{"(>= NIL 23)" , "Error! Parameter at position: 1 of function >= is not numeric!    Actual: NIL"},
+	{"(int)" , "Error! Expected length of int list is 2!    Actual: 1"},
+	{"(int 12 5 94 95)" , "Error! Expected length of int list is 2!    Actual: 5"},
+	{"(lcm)" , "Error! Expected length of lcm list to be at least 2!    Actual: 1"},
+	{"(<)" , "Error! Expected length of < list to be at least 2!    Actual: 1"},
+	{"(< 23 45 (cons T 45) 34)" , "Error! Parameter at position: 3 of function < is not numeric!    Actual: (T . 45)"},
+	{"(< () 23)" , "Error! Parameter at position: 1 of function < is not numeric!    Actual: NIL"},
+	{"(<=)" , "Error! Expected length of <= list to be at least 2!    Actual: 1"},
+	{"(<= NIL 23)" , "Error! Parameter at position: 1 of function <= is not numeric!    Actual: NIL"},
+	{"(max)" , "Error! Expected length of max list to be at least 2!    Actual: 1"},
+	{"(min)" , "Error! Expected length of min list to be at least 2!    Actual: 1"},
+	{"(-)" , "Error! Expected length of - list to be at least 2!    Actual: 1"},
+	{"(- 22 (cons T 45) 34)" , "Error! Parameter at position: 2 of function - is not numeric!    Actual: (T . 45)"},
+	{"(- (cons 34 20) 23)" , "Error! Parameter at position: 1 of function - is not numeric!    Actual: (34 . 20)"},
+	{"(minusp)" , "Error! Expected length of minusp list is 2!    Actual: 1"},
+	{"(minusp 23 23)" , "Error! Expected length of minusp list is 2!    Actual: 3"},
+	{"(minusp T)" , "Error! Parameter at position: 1 of function minusp is not numeric!    Actual: T"},
+	{"(/=)" , "Error! Expected length of /= list to be at least 2!    Actual: 1"},
+	{"(null)" , "Error! Expected length of null list is 2!    Actual: 1"},
+	{"(null 23 23 T)" , "Error! Expected length of null list is 2!    Actual: 4"},
+	{"(oddp)" , "Error! Expected length of oddp list is 2!    Actual: 1"},
+	{"(oddp 23 23)" , "Error! Expected length of oddp list is 2!    Actual: 3"},
+	{"(oddp T)" , "Error! Parameter at position: 1 of function oddp is not numeric!    Actual: T"},
+	{"(1-)" , "Error! Expected length of 1- list is 2!    Actual: 1"},
+	{"(1- 23 23)" , "Error! Expected length of 1- list is 2!    Actual: 3"},
+	{"(1- T)" , "Error! Parameter at position: 1 of function 1- is not numeric!    Actual: T"},
+	{"(1+)" , "Error! Expected length of 1+ list is 2!    Actual: 1"},
+	{"(1+ 23 23)" , "Error! Expected length of 1+ list is 2!    Actual: 3"},
+	{"(1+ T)" , "Error! Parameter at position: 1 of function 1+ is not numeric!    Actual: T"},
+	{"(+ T NIL 34)" , "Error! Parameter at position: 1 of function + is not numeric!    Actual: T"},
+	{"(+ 23 (cons 34 20))" , "Error! Parameter at position: 2 of function + is not numeric!    Actual: (34 . 20)"},
+	{"(plusp)" , "Error! Expected length of plusp list is 2!    Actual: 1"},
+	{"(plusp 23 23)" , "Error! Expected length of plusp list is 2!    Actual: 3"},
+	{"(plusp T)" , "Error! Parameter at position: 1 of function plusp is not numeric!    Actual: T"},
+	{"(')" , "Error! Expected length of ' list is 2!    Actual: 1"},
+	{"(' T NIL)" , "Error! Expected length of ' list is 2!    Actual: 3"},
+	{"(* 2 T)" , "Error! Parameter at position: 2 of function * is not numeric!    Actual: T"},
+	{"(zerop)" , "Error! Expected length of zerop list is 2!    Actual: 1"},
+	{"(zerop 23 23)" , "Error! Expected length of zerop list is 2!    Actual: 3"},
+	{"(zerop T)" , "Error! Parameter at position: 1 of function zerop is not numeric!    Actual: T"},
+}
+
+func TestErrorCases(t *testing.T) {
+	asserterSingleton := asserterImpl.NewSingleton()
+
+	tokenizerSingleton := tokenizerImpl.NewSingleton()
+	parserSingleton := parserImpl.NewSingleton()
+	printerSingleton := printerImpl.NewSingleton()
+
+	functionSingleton := functionImpl.NewSingleton(
+		printerSingleton.GetPrinter(),
+	)
+	userDefinedSingleton := userDefinedImpl.NewSingleton(
+		functionSingleton.GetFunctionMap(),
+		asserterSingleton.GetFunctionLengthAsserter(),
+	)
+	evaluatorSingleton := evaluatorImpl.NewSingleton(
+		functionSingleton.GetFunctionMap(),
+	)
+	interpreterSingleton := interpreterImpl.NewSingleton(
+		tokenizerSingleton.GetTokenizer(),
+		parserSingleton.GetParser(),
+		userDefinedSingleton.GetFunctionGenerator(),
+		asserterSingleton.GetExpressionListLengthAsserter(),
+		evaluatorSingleton.GetProgramEvaluator(),
+		printerSingleton.GetPrinter(),
+	)
+
+	interpreter := interpreterSingleton.GetInterpreter()
+
+	for _, e := range errorTests {
+		actual, actualError := interpreter.Interpret(e.input)
+
+		assert.Empty(t, actual)
+		assert.Equal(t, e.expected, actualError.Error())
+	}
+}
+
 func TestLargeInput(t *testing.T) {
 	asserterSingleton := asserterImpl.NewSingleton()
 

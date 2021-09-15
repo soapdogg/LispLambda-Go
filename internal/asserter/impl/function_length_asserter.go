@@ -27,7 +27,7 @@ func (f functionLengthAsserter) AssertLengthIsAsExpected(
 ) error {
 	actual := f.functionLengthDeterminer.DetermineFunctionLength(node)
 	if actual != expected {
-		return errors.New("Error! Expected length of " + functionName + " list is " + strconv.Itoa(expected)  + "!    Actual: " + strconv.Itoa(actual) + "\n")
+		return errors.New("Error! Expected length of " + functionName + " list is " + strconv.Itoa(expected)  + "!    Actual: " + strconv.Itoa(actual))
 	}
 	return nil
 }
@@ -39,7 +39,7 @@ func (f functionLengthAsserter) AssertLengthIsAtLeastMinimum(
 ) error {
 	actual := f.functionLengthDeterminer.DetermineFunctionLength(node)
 	if actual < expected {
-		return errors.New("Error! Expected length of " + functionName + " list is to be at least " + strconv.Itoa(expected)  + "!    Actual: " + strconv.Itoa(actual) + "\n")
+		return errors.New("Error! Expected length of " + functionName + " list to be at least " + strconv.Itoa(expected)  + "!    Actual: " + strconv.Itoa(actual))
 	}
 	return nil
 }

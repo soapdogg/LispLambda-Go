@@ -90,7 +90,7 @@ func (e expressionListLengthAsserter) AssertLengthIsAsExpected(
 							return err
 						}
 					} else {
-						return errors.New("Error! cond parameter is not a list")
+						return errors.New("Error! cond parameter is not a list!")
 					}
 				}
 			}

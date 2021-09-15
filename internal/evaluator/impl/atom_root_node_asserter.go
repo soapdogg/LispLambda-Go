@@ -21,7 +21,7 @@ func (a atomRootNodeAsserter) AssertAtomRootNode(atomNode datamodels.AtomNode) e
 	isNotT := value != constants.T
 	isNotNil := value != constants.NIL
 	if isNotNumeric && isNotT && isNotNil {
-		return errors.New("Error! " + value + " is not a valid atomic value")
+		return errors.New("Error! " + value + " is not a valid atomic value!")
 	}
 	return nil
 }
