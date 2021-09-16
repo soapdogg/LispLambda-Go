@@ -21,12 +21,12 @@ func (u userDefinedFormalParametersAsserter) AssertFormalParameters(formalParame
 		formalParametersSet[formalParameter] = true
 	}
 	if len(formalParameters) != len(formalParametersSet) {
-		return errors.New("Error! Duplicate formal parameter name!\n")
+		return errors.New("Error! Duplicate formal parameter name!")
 	}
 	for invalidName, _ := range u.invalidNames {
 		_, ok := formalParametersSet[invalidName]
 		if ok {
-			return errors.New("Error! Invalid formal parameter name!\n")
+			return errors.New("Error! Invalid formal parameter name!")
 		}
 	}
 	return nil

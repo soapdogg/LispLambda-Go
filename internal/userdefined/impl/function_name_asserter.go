@@ -23,7 +23,7 @@ func (f functionNameAsserter) AssertFunctionNameIsValid(functionName string) err
 	isNumeric := err == nil
 
 	if isKeyword || isNumeric {
-		return errors.New("Error! Invalid function name: " + functionName + "\n")
+		return errors.New("Error! Invalid function name: " + functionName)
 	}
 	return nil
 }
